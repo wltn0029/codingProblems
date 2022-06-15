@@ -3,19 +3,14 @@ from functools import reduce
 def solution(genres, plays):
     answer = []
     music = {}
-    s = []
+    grs = []
     for i, p in enumerate(plays):
-        if genres[i] in music : music[genres[i]].append((p, -i))
-        else : music[genres[i]] = [(p, -i)]
+        if genres[i] in music : music[genres[i]].append((p, i))
+        else : music[genres[i]] = [(p, i)]
     
-    for k in music :
-        s.append((reduce(lambda acc, cur: acc+cur[0], music[k], 0), k))
-        music[k].sort(reverse=True)
-
-    s.sort(reverse=True)
-    print(s)
-    for sm, g in s:
-        if len(music[g]) <2 : answer.append(-music[g][0][1])
-        else : answer.extend([-i for p, i in music[g][0:2]])
+    grs = sorted(music.keys(), key= lambda x : sum([p for p, i in music[x]]), reverse=True)
+    for g in grs:
+        p = sorted(music[g], key= lambda x: (x[0], -x[1]), reverse=True)
+        answer.extend([i for p,i in p[0:min(2, len(p))]])
     
     return answer
