@@ -1,10 +1,9 @@
+from collections import Counter
+from functools import reduce
+
 def solution(clothes):
     answer = 1
-    closet = {}
-    for c, t in clothes :
-        if t in closet : closet[t] += 1
-        else : closet[t] = 1
-    for c in closet :
-        answer *= (closet[c]+1)
-    answer -= 1
-    return answer
+    c = Counter([kind for cloth, kind in clothes])
+    print(c)
+    answer = reduce(lambda acc, cur : acc * (c[cur]+1), c, 1)
+    return answer-1
