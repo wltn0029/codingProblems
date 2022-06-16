@@ -5,7 +5,7 @@ def solution(bridge_length, weight, truck_weights):
     bridge = deque([0 for i in range(bridge_length)])
     weight_sum = 0
     
-    while len(trucks) != 0 or weight_sum != 0:
+    while len(trucks) != 0:
         f = bridge.popleft()
         n = 0
         weight_sum -= f
@@ -16,4 +16,4 @@ def solution(bridge_length, weight, truck_weights):
         bridge.rotate(-1)
         answer+=1
         
-    return answer
+    return answer + bridge_length
