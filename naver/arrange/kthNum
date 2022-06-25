@@ -1,0 +1,27 @@
+def mergeSort(arr, i, j) :
+    if i == j-1 : return [arr[i]]
+    mid = (j-i)//2
+    left = mergeSort(arr, i, i+mid)
+    right = mergeSort(arr, i+mid, j)
+    merged = []
+    l, r = 0, 0
+    while l<len(left) and r<len(right):
+        while l<len(left) and left[l] <= right[r]:
+            merged.append(left[l])
+            l+=1
+        while l<len(left) and r<len(right) and right[r] <= left[l]:
+            merged.append(right[r])
+            r+=1
+    if l<len(left):
+        merged.extend(left[l:])
+    if r<len(right):
+        merged.extend(right[r:])
+    return merged
+        
+def solution(array, commands):
+    answer = []
+    for i, j, k in commands :
+        merged = mergeSort(array,i-1, j)
+        answer.append(merged[k-1])
+    return answer
+        
