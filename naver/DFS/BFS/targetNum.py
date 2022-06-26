@@ -1,16 +1,5 @@
 def solution(numbers, target):
-    ans = 0
-    M = (sum(numbers)-target)/2
-    n = len(numbers)
-    
-    for i in range(1, 2**n):
-        cur = 0
-        curSum = 0
-        while i > 0:
-            if i&1 : 
-                curSum += numbers[cur]
-            cur += 1
-            i >>=1
-        if curSum == M :
-            ans += 1
-    return ans
+    if not numbers and  target == 0 : return 1
+    elif not numbers : return 0    
+    else :
+        return solution(numbers[1:], target+numbers[0]) + solution(numbers[1:], target-numbers[0])
