@@ -4,16 +4,21 @@ def solution(n, computers):
     connected = [False] * n
     queue = deque()
     network = 0
-    for i in range(n):
-        if connected[i]:
-            continue
-        queue.append(i)
-        connected[i] = True
+    
+    def bfs(start):
+        queue.append(start)
+        connected[start] = True
         while queue:
             cur = queue.popleft()
             for j, e in enumerate(computers[cur]):
                 if e == 1 and not connected[j]:
                     queue.append(j)
                     connected[j] = True
-        network +=1
+
+    for i in range(n):
+        if connected[i]:
+            continue
+        bfs(i)
+        network += 1
+        
     return network
